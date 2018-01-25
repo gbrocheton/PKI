@@ -33,3 +33,8 @@ So that the Web server knows to ask for (and validate) a user's Client Key again
 nginx
     ssl_client_certificate /path/to/ca.crt;
     ssl_verify_client [on|optional];
+    
+Apache2
+    SSLCACertificateFile /path/to/ca.pem
+    SSLOptions +StdEnvVars #optional
+    SSLVerifyClient require
