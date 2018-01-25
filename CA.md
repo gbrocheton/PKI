@@ -1,14 +1,10 @@
-# Client-side SSL
-For excessively paranoid client authentication.
+## Client-side SSL using self-signed Certificate Authority root
 
-## Using self-signed certificate.
-### Create a Certificate Authority root
-
+### Create the self-signed CA root
 Organization & Common Name: Some human identifier for this server CA.
 
     openssl genrsa -des3 -out ca.key 4096
     openssl req -new -x509 -days 365 -key ca.key -out ca.crt
-
 
 ### Create the Client Key and CSR
 Organization & Common Name = Person name
@@ -27,9 +23,13 @@ So that it may be installed in most browsers.
 Combines `client.crt` and `client.key` into a single PEM file for programs using openssl.
 
     openssl pkcs12 -in client.p12 -out client.pem -clcerts
+Or
+    cat client.key > client.pem
+    cat client.crt >> client.pem
 
-### Install CA cert on nginx
+### Enable client certificarte verification on web server
 So that the Web server knows to ask for (and validate) a user's Client Key against the internal CA certificate.
 
+nginx
     ssl_client_certificate /path/to/ca.crt;
-    ssl_verify_client optional; # or `on` if you require client key
+    ssl_verify_client [on|optional];
