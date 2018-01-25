@@ -27,14 +27,16 @@ Or
     cat client.key > client.pem
     cat client.crt >> client.pem
 
-### Enable client certificarte verification on web server
-So that the Web server knows to ask for (and validate) a user's Client Key against the internal CA certificate.
+### Enable client certificate verification on web server
+So the web server will require a user certificate provided by the CA
 
 nginx
+
     ssl_client_certificate /path/to/ca.crt;
     ssl_verify_client [on|optional];
     
 Apache2
+
     SSLCACertificateFile /path/to/ca.pem
     SSLOptions +StdEnvVars #optional
     SSLVerifyClient require
