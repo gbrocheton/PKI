@@ -26,6 +26,7 @@ Combines `client.crt` and `client.key` into a single PEM file for programs using
 
     openssl pkcs12 -in client.p12 -out client.pem -clcerts
 Or
+
     cat client.key > client.pem
     cat client.crt >> client.pem
 
