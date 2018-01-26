@@ -9,9 +9,11 @@ Organization & Common Name: Some human identifier for this server CA.
 ### Create the Client Key and CSR
 Organization & Common Name = Person name
 
+    # Create the key
     openssl genrsa -des3 -out client.key 4096
+    # Create a Certificate Signing Request
     openssl req -new -key client.key -out client.csr
-    # self-signed
+    # Sign the certificate with the CA
     openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out client.crt
 
 #### Convert Client Key to PKCS
