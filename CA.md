@@ -3,7 +3,7 @@
 ### Create the self-signed CA root
 Organization & Common Name: Some human identifier for this server CA.
 
-    openssl genrsa -des3 -out ca.key 4096
+    openssl genrsa [-des3] -out ca.key 2048
     openssl req -new -x509 -days 365 -key ca.key -out ca.crt
 
 ### Create the Client Key and CSR
