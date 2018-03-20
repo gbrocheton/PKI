@@ -1,13 +1,13 @@
-## Client-side SSL using self-signed Certificate Authority root
+### Client-side SSL using self-signed Certificate Authority root (~)
 
-### Create a self-signed root Certificate Authority
+#### Create a self-signed root Certificate Authority
 Organization & Common Name: Some human identifier for this server CA.
 
     # Create a self-signed certificate to use as certificate authority. Optionnal: Replace 2048 by 4096. Add -des3 option.
     openssl genrsa -out ca.key 2048
     openssl req -new -x509 -days 365 -key ca.key -out ca.crt
 
-### Create a host Key and a Certificate Signing Request
+#### Create a host Key and a Certificate Signing Request
 Subject name must match website name for webserver SSL certificate
 
     # Create the key. Optionnal: Replace 2048 by 4096. Add -des3 option.
