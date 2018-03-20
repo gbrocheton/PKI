@@ -2,22 +2,25 @@
 
 ### Create the self-signed CA root
 Organization & Common Name: Some human identifier for this server CA.
-
-    openssl genrsa -out ca.key [2048|4096] [-des3]
+    # Create self-signed certificate to use as certificate authority. Optionnal: Replace 2048 by 4096. Add -des3 option.
+    openssl genrsa -out ca.key 2048
     openssl req -new -x509 -days 365 -key ca.key -out ca.crt
 
 ### Create the Client Key and CSR
 Subject name must match website name for SSL certificate
 
-    # Create the key
-    openssl genrsa [-des3] -out client.key [2048|4096]
+    # Create the key. Optionnal: Replace 2048 by 4096. Add -des3 option.
+    openssl genrsa -out client.key 2048
     # Create a Certificate Signing Request
     openssl req -new -key client.key -out client.csr
     # Sign the certificate with the CA
-    openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key [-set_serial 10|-CAcreateserial] -out client.crt
+    openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -out client.crt [-set_serial 10|-CAcreateserial]
 
     # Add Subject alternative name. Useful for web servers. If it doesn't work, replace extfile paramater by file path where you copied the echo string
-    openssl x509 -req -days 3650 -in 10.1.30.43.csr -CA actia-security-ca.crt -CAkey actia-security-ca.key -CAcreateserial -out 10.1.30.43.crt  -extfile <(echo "subjectAltName=DNS:elasticseearch.actia.local,IP:10.1.30.43")
+    openssl x509 -req -days 3650 -in 10.0.0.10.csr -CA actia-security-ca.crt -CAkey actia-security-ca.key -CAcreateserial -out 10.0.0.10.crt -extfile <(echo "subjectAltName=DNS:elasticseearch.actia.local,IP:10.0.0.10")
+    #If it doesn't work, use:
+    echo "subjectAltName=DNS:webserver.infra.lan,IP:10.0.0.10" > san.txt
+    openssl x509 -req -days 3650 -in 10.0.0.10.csr -CA actia-security-ca.crt -CAkey actia-security-ca.key -CAcreateserial -out 10.0.0.10.crt -extfile san.txt
 
     # Tip: Check CSR information
     openssl req -text -noout -in private.csr
