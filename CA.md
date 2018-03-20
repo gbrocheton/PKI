@@ -16,6 +16,9 @@ Subject name must match website name for SSL certificate
     # Sign the certificate with the CA
     openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 10 -out client.crt
 
+    # Tip: Check CSR information
+    openssl req -text -noout -in private.csr
+
 #### Convert Client Key to PKCS
 So that it may be installed in most browsers.
 
