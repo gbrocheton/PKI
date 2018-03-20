@@ -7,7 +7,7 @@ Organization & Common Name: Some human identifier for this server CA.
     openssl req -new -x509 -days 365 -key ca.key -out ca.crt
 
 ### Create the Client Key and CSR
-Organization & Common Name = Person name
+Subject name must match website name for SSL certificate
 
     # Create the key
     openssl genrsa [-des3] -out client.key [2048|4096]
