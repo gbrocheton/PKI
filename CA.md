@@ -16,7 +16,7 @@ Subject name must match website name for SSL certificate
     # Sign the certificate with the CA
     openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key [-set_serial 10|-CAcreateserial] -out client.crt
 
-    # Add Subject alternative name. Useful for web servers. May not work
+    # Add Subject alternative name. Useful for web servers. If it doesn't work, replace extfile paramater by file path where you copied the echo string
     openssl x509 -req -days 3650 -in 10.1.30.43.csr -CA actia-security-ca.crt -CAkey actia-security-ca.key -CAcreateserial -out 10.1.30.43.crt  -extfile <(echo "subjectAltName=DNS:elasticseearch.actia.local,IP:10.1.30.43")
 
     # Tip: Check CSR information
