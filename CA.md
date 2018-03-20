@@ -19,7 +19,7 @@ Subject name must match website name for SSL certificate
 #### Convert Client Key to PKCS
 So that it may be installed in most browsers.
 
-    openssl pkcs12 -export -clcerts -in client.crt -inkey client.key -out client.p12
+    openssl pkcs12 -export [-clcerts|-cacerts|-nocerts] -in client.crt -inkey client.key -out client.p12
 
 #### Convert Client Key to (combined) PEM
 Combines `client.crt` and `client.key` into a single PEM file for programs using openssl.
