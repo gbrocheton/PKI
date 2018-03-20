@@ -14,7 +14,10 @@ Subject name must match website name for SSL certificate
     # Create a Certificate Signing Request
     openssl req -new -key client.key -out client.csr
     # Sign the certificate with the CA
-    openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 10 -out client.crt
+    openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key [-set_serial 10|-CAcreateserial] -out client.crt
+
+    # Add Subject alternative name. Useful for web servers
+    openssl x509 -req -days 3650 -in 10.1.30.43.csr -CA actia-security-ca.crt -CAkey actia-security-ca.key -CAcreateserial -out 10.1.30.43.crt  -extfile <(echo "subjectAltName=DNS:elasticseearch.actia.local,IP:10.1.30.43")
 
     # Tip: Check CSR information
     openssl req -text -noout -in private.csr
